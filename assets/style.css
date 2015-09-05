@@ -1,0 +1,50 @@
+.media-frame .mexp-content.mexp-content-gdrive .attachments {
+	right: 300px;
+}
+
+.media-frame .mexp-content-gdrive .attachment {
+	width: 33%;
+	height: 164px;
+}
+
+.media-frame .mexp-content.mexp-content-gdrive-gauth .mexp-toolbar {
+	padding-bottom: 999em;
+}
+
+.mexp-content-gdrive #signinButton {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.mexp-content-gdrive #signinButton img {
+	display: block;
+}
+
+.mexp-content-gdrive .description {
+	float: left;
+	margin: 7px 10px;
+}
+
+.mexp-content-gdrive .media-sidebar {
+	z-index: 125;
+}
+
+.mexp-content-gdrive .mexp-item-thumb img {
+	width: 150px;
+	border: 1px solid #ccc;
+}
+
+.mexp-content-gdrive .mexp-item-main {
+	height: 21px;
+	margin-top: 6px;
+}
+
+.mexp-content-gdrive .media-sidebar .dashicons-warning {
+	margin-right: 3px;
+	vertical-align: bottom;
+}
+
+.mexp-content-gdrive .embed-status {
+	min-height: 30px;
+}
