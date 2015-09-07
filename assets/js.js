@@ -368,6 +368,7 @@ media.controller.MEXP = mexpController.extend({
 
 		retval = wp.shortcode.string({
 			tag:  'gdoc',
+			type: 'single',
 			attrs: shortcode
 		});
 
