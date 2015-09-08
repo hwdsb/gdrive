@@ -24,28 +24,46 @@ class MEXP_GDrive_Service extends MEXP_Service {
 	 * Constructor.
 	 */
 	public function __construct() {
-		require_once dirname( __FILE__ ) . '/mexp-template.php';
+		// Includes
+		$this->includes();
 
 		// Properties
 		$this->properties();
 
-		// Go!
-		$this->set_template( new MEXP_GDrive_Template );
+		// Hooks
+		$this->hooks();
+	}
 
+	/**
+	 * Includes.
+	 */
+	protected function includes() {
+		require_once dirname( __FILE__ ) . '/functions.php';
+		require_once dirname( __FILE__ ) . '/mexp-template.php';
+	}
+
+	/**
+	 * Set up properties.
+	 */
+	protected function properties() {
+		// Google API-related
+		$this->client_id     = constant( 'MEXP_GDRIVE_CLIENT_ID' );
+		$this->client_secret = constant( 'MEXP_GDRIVE_CLIENT_SECRET' );
+
+		// Template
+		$this->set_template( new MEXP_GDrive_Template );
+	}
+
+	/**
+	 * Set up hooks.
+	 */
+	protected function hooks() {
 		// oAuth AJAX hook
 		add_action( 'wp_ajax_mexp-gdrive-oauth', array( $this, 'oauth_ajax_listener' ) );
 
 		// doc embed status AJAX hooks
 		add_action( 'wp_ajax_mexp-gdrive-doc-embed-status', array( $this, 'doc_embed_status_ajax_listener' ) );
 		add_action( 'wp_ajax_mexp-gdrive-doc-allow-embed',  array( $this, 'doc_allow_embed_ajax_listener' ) );
-	}
-
-	/**
-	 * Set up Google API properties.
-	 */
-	protected function properties() {
-		$this->client_id     = constant( 'MEXP_GDRIVE_CLIENT_ID' );
-		$this->client_secret = constant( 'MEXP_GDRIVE_CLIENT_SECRET' );
 	}
 
 	/**
