@@ -444,7 +444,7 @@ class MEXP_GDrive_Service extends MEXP_Service {
 		// attempt to authorize
 		if ( true === $auth ) {
 			// user has already authorized app; so set access token
-			$refresh_token = $this->get_refresh_token();
+			$refresh_token = mexp_gdrive_get_refresh_token();
 			if ( ! empty( $refresh_token ) ) {
 
 				// set access token
