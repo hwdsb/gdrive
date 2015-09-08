@@ -83,7 +83,7 @@ class MEXP_GDrive_Service extends MEXP_Service {
 		);
 
 		// only load Google Client JS API if we do not have an existing refresh token
-		if ( '' === $this->get_refresh_token() ) {
+		if ( '' === mexp_gdrive_get_refresh_token() ) {
 			wp_enqueue_script(
 				'mexp-service-gdrive-gapi',
 				'https://apis.google.com/js/client:platform.js?onload=gdriveStart',
@@ -111,21 +111,6 @@ class MEXP_GDrive_Service extends MEXP_Service {
 		}
 
 		return str_replace( ' src', ' async defer src', $retval );
-	}
-
-	/**
-	 * Get refresh token for Google Drive.
-	 *
-	 * Our implementation requires that every user is authenticated to their own
-	 * Google Drive.
-	 *
-	 * If you're using this in a shared organizational context, use:
-	 *  - the 'mexp_gdrive_get_refresh_token' filter to override fetching token
-	 *  - the 'mexp_gdrive_update_refresh_token' action to update token
-	 *  - the 'mexp_gdrive_delete_refresh_token' action to delete token
-	 */
-	private function get_refresh_token() {
-		return apply_filters( 'mexp_gdrive_get_refresh_token', get_user_meta( get_current_user_id(), 'gdu_refresh_token', true ) );
 	}
 
 	/** MEXP SERVICE API ***************************************************/
@@ -256,7 +241,7 @@ class MEXP_GDrive_Service extends MEXP_Service {
 	public function tabs( array $tabs ) {
 		$tabs['gdrive'] = array();
 
-		$refresh_token = $this->get_refresh_token();
+		$refresh_token = mexp_gdrive_get_refresh_token();
 		if ( ! empty( $refresh_token ) ) {
 			$tabs['gdrive']['gmine'] = array(
 				'text'       => _x( 'All', 'Tab title', 'gdrive' ),
