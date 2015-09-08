@@ -92,8 +92,6 @@ class MEXP_GDrive_Service extends MEXP_Service {
 			);
 
 			add_filter( 'script_loader_tag', array( $this, 'gapi_js_async_defer' ), 10, 2 );
-
-			add_action( 'admin_print_scripts', array( $this, 'gapi_inline_js_head' ) );
 			add_action( 'wp_print_scripts',    array( $this, 'gapi_inline_js_head' ) );
 		}
 	}
