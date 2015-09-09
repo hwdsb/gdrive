@@ -21,6 +21,12 @@
 	display: block;
 }
 
+#gauth .button-larger {
+	font-size: 1.3em;
+	height: auto;
+	padding: .3em .8em;
+}
+
 .mexp-content-gdrive .description {
 	float: left;
 	margin: 7px 10px;

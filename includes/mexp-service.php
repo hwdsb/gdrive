@@ -40,6 +40,14 @@ class MEXP_GDrive_Service extends MEXP_Service {
 	protected function includes() {
 		require_once dirname( __FILE__ ) . '/functions.php';
 		require_once dirname( __FILE__ ) . '/mexp-template.php';
+
+		if ( mexp_gdrive_is_user_profile_page_enabled() && is_main_site() ) {
+			require_once dirname( __FILE__ ) . '/admin-profile.php';
+
+			if ( function_exists( 'buddypress' ) ) {
+				require_once dirname( __FILE__ ) . '/buddypress.php';
+			}
+		}
 	}
 
 	/**
@@ -121,7 +129,6 @@ class MEXP_GDrive_Service extends MEXP_Service {
 	 * Extended class method API.
 	 */
 	public function load() {
-
 		add_action( 'mexp_enqueue', array( $this, 'enqueue_statics' ) );
 
 		add_action( 'print_media_templates', array( 'MEXP_GDrive_Template', 'extra' ) );

@@ -49,8 +49,19 @@ class MEXP_GDrive_Template extends MEXP_Template {
 				?>
 				<form action="#" class="mexp-toolbar-container clearfix">
 					<div id="gauth">
-						<button id="signinButton"><img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="<?php _e( 'Sign in with Google', 'gdrive' ); ?>" /></button>
-						<p><?php _e( "We'll open a new page to help you connect to your Google Drive account.", 'gdrive' ); ?></p>
+						<?php if ( is_main_site() || mexp_gdrive_is_subdomain_auth_supported() ) : ?>
+							<button id="signinButton"><img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="<?php _e( 'Sign in with Google', 'gdrive' ); ?>" /></button>
+							<p><?php _e( "We'll open a new page to help you connect to your Google Drive account.", 'gdrive' ); ?></p>
+
+						<?php elseif ( mexp_gdrive_is_user_profile_page_enabled() ) : ?>
+
+							<a href="<?php echo esc_url( mexp_gdrive_get_user_profile_url() ); ?>" class="button-primary button-larger" target="_blank"><?php _e( 'Set up Google Drive', 'gdrive' ); ?></a>
+
+							<p><?php _e( 'Before you can embed items from your Google Drive, you need to authenticate with Google.', 'gdrive' ); ?></p>
+							<p><?php _e( 'Click on the button above to connect your Google Drive account to this site and then reload this page.', 'gdrive' ); ?></p>
+
+						<?php endif; ?>
+
 					</div>
 					<span class="description" style="display:none;"><?php _e( 'Listing contents of your Google Drive.', 'gdrive' ) ?></span>
 				</form>
