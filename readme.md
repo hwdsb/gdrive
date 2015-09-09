@@ -21,7 +21,7 @@ Currently in pre-release status.
       2. Under **Create client ID**, check **Web application** and click "Create".
       3. Under **Name**, type in an identifier of your choosing.
       4. Under **Authorized Javascript origins**, type in your site URL without a trailing slash. eg. `http://example.com`
-      5. Under **Authorized redirect URIs**, type in your site URL with a trailing slash. eg. `http://example.com/`\
+      5. Under **Authorized redirect URIs**, type in your site URL with a trailing slash. eg. `http://example.com/`
       6. Note down your **Client ID** and **Client secret** located at the top of this page.
 1. In `wp-config.php` or in a */wp-content/mu-plugins/* plugin, add the following:
 
