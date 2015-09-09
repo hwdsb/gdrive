@@ -481,15 +481,13 @@ class MEXP_GDrive_Service extends MEXP_Service {
 	 * @return bool|WP_Error Boolean true on success. WP_Error object on failure.
 	 */
 	protected function load_gapi( $auth = false ) {
-		if ( false === class_exists( 'Google_Client' ) ) {
-			if ( file_exists( MEXP_GDrive::$PATH . '/vendor/autoload.php' ) ) {
-				require_once MEXP_GDrive::$PATH . '/vendor/autoload.php';
-			} else {
-				return new WP_Error(
-					'mexp_gdrive_lib_required',
-					__( 'Please install the Google PHP API Client.  You can do this by running "composer install" in your console from the "gdrive" directory', 'gdrive' )
-				);
-			}
+		if ( file_exists( MEXP_GDrive::$PATH . '/vendor/autoload.php' ) ) {
+			require_once MEXP_GDrive::$PATH . '/vendor/autoload.php';
+		} else {
+			return new WP_Error(
+				'mexp_gdrive_lib_required',
+				__( 'Please install the Google PHP API Client.  You can do this by running "composer install" in your console from the "gdrive" directory', 'gdrive' )
+			);
 		}
 
 		// set up the client
