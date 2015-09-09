@@ -16,8 +16,13 @@ Currently in pre-release status.
 1. For this, you will need to create a Google Drive application in Google Developers Console.
    1. Click on this link to create the app:<br> https://console.developers.google.com//start/api?id=drive&credential=client_key
    1. For help filling in the application, read "*Step 1*" of this page:<br> https://developers.google.com/identity/sign-in/web/server-side-flow#step_1_create_a_client_id_and_client_secret
-   1. For your created app, enable oAuth 2.0.  Read the "*Create a client ID and client secret*" section of this page for help:<br> https://developers.google.com/drive/web/auth/web-client#create_a_client_id_and_client_secret
-   1. Note down your client ID and client secret.  You can find this under "**APIs and auth > Credentials**" in Google Developers Console.
+   1. For your created app, enable oAuth 2.0.
+      1. Under **APIs & Auth > Credentials**, click on **Add credentials > OAuth 2.0 client ID**.
+      2. Under **Create client ID**, check **Web application** and click "Create".
+      3. Under **Name**, type in an identifier of your choosing.
+      4. Under **Authorized Javascript origins**, type in your site URL without a trailing slash. eg. `http://example.com`
+      5. Under **Authorized redirect URIs**, type in your site URL with a trailing slash. eg. `http://example.com/`\
+      6. Note down your **Client ID** and **Client secret** located at the top of this page.
 1. In `wp-config.php` or in a */wp-content/mu-plugins/* plugin, add the following:
 
         define( 'MEXP_GDRIVE_CLIENT_ID', 'YOUR_CLIENT_ID_FROM_GOOGLE' );
