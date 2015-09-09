@@ -93,7 +93,7 @@ function mexp_gdrive_user_settings_content() {
 		</div>
 
 		<script type="text/javascript">
-		jQuery('#signinButton').click( function() {
+		jQuery('#signinButton').click( function( e ) {
 			e.preventDefault();
 
 			auth2.grantOfflineAccess( {'redirect_uri': 'postmessage'} ).then( function( authResult ) {
