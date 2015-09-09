@@ -94,7 +94,7 @@ function mexp_gdrive_user_settings_content() {
 
 		<script type="text/javascript">
 		jQuery('#signinButton').click( function() {
-			event.preventDefault();
+			e.preventDefault();
 
 			auth2.grantOfflineAccess( {'redirect_uri': 'postmessage'} ).then( function( authResult ) {
 				if ( authResult['code'] ) {
@@ -125,7 +125,7 @@ function mexp_gdrive_user_settings_content() {
 
 		<script type="text/javascript">
 		jQuery('#gauth-revoke').click( function( e ) {
-			event.preventDefault();
+			e.preventDefault();
 
 			jQuery.post( ajaxurl, {
 				action: 'mexp-gdrive-revoke',
