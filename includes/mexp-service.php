@@ -64,13 +64,15 @@ class MEXP_GDrive_Service extends MEXP_Service {
 		// doc embed status AJAX hooks
 		add_action( 'wp_ajax_mexp-gdrive-doc-embed-status', array( $this, 'doc_embed_status_ajax_listener' ) );
 		add_action( 'wp_ajax_mexp-gdrive-doc-allow-embed',  array( $this, 'doc_allow_embed_ajax_listener' ) );
+
+		// revoke AJAX hook
+		add_action( 'wp_ajax_mexp-gdrive-revoke', array( $this, 'oauth_ajax_revoke' ) );
 	}
 
 	/**
 	 * Enqueue assets.
 	 */
 	public function enqueue_statics() {
-
 		wp_enqueue_script(
 			'mexp-service-gdrive',
 			MEXP_GDrive::$URL . '/assets/js.js',
@@ -315,6 +317,41 @@ class MEXP_GDrive_Service extends MEXP_Service {
 			'type' => 'auth-error',
 			'message' => __( 'Auth error', 'gdrive' ),
 		) );
+	}
+
+	/**
+	 * AJAX listener to revoke access to a user's Google Drive.
+	 *
+	 * @link https://developers.google.com/identity/protocols/OAuth2WebServer?hl=en#tokenrevoke
+	 */
+	public function oauth_ajax_revoke() {
+		check_ajax_referer( 'mexp-gdrive-revoke' );
+
+		$data = array();
+		$refresh_token = mexp_gdrive_get_refresh_token();
+
+		if ( ! empty( $refresh_token ) ) {
+			$ping = wp_remote_head( "https://accounts.google.com/o/oauth2/revoke?token={$refresh_token}" );
+
+			delete_user_meta( get_current_user_id(), 'gdu_refresh_token' );
+			do_action( 'mexp_gdrive_delete_refresh_token' );
+
+			if ( 200 === (int) $ping['response']['code'] ) {
+				$data['message'] = '<div id="message" class="updated"><p>' . __( 'Your Google Drive was successfully disconnected from this site.', 'gdrive' ) . '</p></div>';
+
+				wp_send_json_success( $data );
+
+			} else {
+				$data['message'] = '<div id="message" class="error"><p>' . __( 'Something went wrong when trying to disconnect your Google Drive from this site.', 'gdrive' ) . '</p></div>';
+
+				wp_send_json_error( $data );
+			}
+
+		} else {
+			$data['message'] = '<div id="message" class="error"><p>' . __( 'Your Google Drive has already been disconnected from this site.', 'gdrive' ) . '</p></div>';
+
+			wp_send_json_error( $data );
+		}
 	}
 
 	/**
