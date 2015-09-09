@@ -296,6 +296,8 @@ class MEXP_GDrive_Service extends MEXP_Service {
 			) );
 		}
 
+		$data = array();
+
 		// this is tres important!
 		$this->client->setRedirectUri( 'postmessage' );
 
@@ -310,13 +312,24 @@ class MEXP_GDrive_Service extends MEXP_Service {
 			// for devs to override where refresh token is saved
 			do_action( 'mexp_gdrive_update_refresh_token', $refresh_token );
 
-			wp_send_json_success();
+
+			if ( ! empty( $_POST['type'] ) && 'not-media' === $_POST['type'] ) {
+				$data['message'] = '<div id="message" class="updated"><p>' . __( 'You have successfully authenticated to Google Drive.  When creating a new post in the admin dashboard, click on the "Add Media" button, followed by the "Insert from Google Drive" link to embed items from your drive.', 'gdrive' ) . '</p></div>';
+			}
+
+			wp_send_json_success( $data );
 		}
 
-		wp_send_json_error( array(
-			'type' => 'auth-error',
-			'message' => __( 'Auth error', 'gdrive' ),
-		) );
+		$data['type'] = 'auth-error';
+
+		if ( ! empty( $_POST['type'] ) && 'not-media' === $_POST['type'] ) {
+			$data['message'] = '<div id="message" class="error"><p>' . __( 'There was an error connecting to Google Drive.', 'gdrive' ) . '</p></div>';
+
+		} else {
+			$data['message'] = __( 'Auth error', 'gdrive' );
+		}
+
+		wp_send_json_error( $data );
 	}
 
 	/**
