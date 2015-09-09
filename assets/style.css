@@ -54,3 +54,7 @@
 .mexp-content-gdrive .embed-status {
 	min-height: 30px;
 }
+
+body.buddypress #mexp-gdrive {
+	margin-top: 2em;
+}
