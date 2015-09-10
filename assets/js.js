@@ -335,23 +335,25 @@ media.controller.MEXP = mexpController.extend({
 				break;
 		}
 
-		switch ( type ) {
-			case 'document' :
-				url += 'pub';
-				break;
+		if ( 'public' === model.get( 'embedType' ) ) {
+			switch ( type ) {
+				case 'document' :
+					url += 'pub';
+					break;
 
-			case 'forms' :
-				url += 'viewform';
-				break;
+				case 'forms' :
+					url += 'viewform';
+					break;
 
-			case 'spreadsheets' :
-				url += 'pubhtml';
-				break;
+				case 'spreadsheets' :
+					url += 'pubhtml';
+					break;
 
-			case 'presentation' :
-				url += 'pub?start=false&loop=false&delayms=3000';
-				break;
+				case 'presentation' :
+					url += 'pub?start=false&loop=false&delayms=3000';
+					break;
 
+			}
 		}
 
 		// set gdoc url
