@@ -103,6 +103,20 @@ wp.media.view.MEXP = mexpView.extend({
 	},
 
 	/**
+	 * This isn't implemented in the main MEXP plugin.
+	 *
+	 * We implement it here.
+	 */
+	moreEmpty: function( response ) {
+
+		//this.$el.find( '.mexp-empty' ).text( this.service.labels.noresults ).show();
+		jQuery( '#gdrive-loadmore' ).hide();
+
+		this.trigger( 'loaded loaded:noresults', response );
+
+	},
+
+	/**
 	 * Overrides parent function to do the following:
 	 *   - Handle Google Drive folder clicks
 	 *   - Adds a sidebar view

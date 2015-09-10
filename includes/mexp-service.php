@@ -166,8 +166,8 @@ class MEXP_GDrive_Service extends MEXP_Service {
 				$endpoint = 'media/popular';
 		}
 
-		if ( ! empty( $request['max_id'] ) ) {
-			$query_params['max_id'] = $request['max_id'];
+		if ( isset( $request['max_id'] ) ) {
+			$query_params['pageToken'] = $request['max_id'];
 		}
 
 		//ray_log( 'query params: ' . print_r( $query_params, true ) );
@@ -185,18 +185,18 @@ class MEXP_GDrive_Service extends MEXP_Service {
 		$service = new Google_Service_Drive( $this->client );
 
 		// Show all Google Drive files
+		if ( isset( $r['nomore'] ) ) {
+			return;
+		}
+
 		$files = $this->list_files( $service, $r );
 
 		$response = new MEXP_Response;
 
-		if ( isset( $r->search_metadata->next_results ) ) {
-			$response->add_meta( 'max_id', self::get_max_id( $r->search_metadata->next_results ) );
-		}
-
 		// Pagination details
-		if ( isset( $files['nextPageToken'] ) ) {
-			$response->add_meta( 'page_token', $files['nextPageToken'] );
-			unset( $files['nextPageToken'] );
+		if ( isset( $files['pageToken'] ) ) {
+			$response->add_meta( 'max_id', $files['pageToken'] );
+			unset( $files['pageToken'] );
 		}
 
 		if ( empty( $files ) ) {
@@ -583,6 +583,8 @@ class MEXP_GDrive_Service extends MEXP_Service {
 
 		$parameters = array();
 
+		$parameters['maxResults'] = 30;
+
 		// only allow files created by the user and not in trash
 		$parameters['q'] = "'me' in owners and trashed = false";
 
@@ -591,7 +593,16 @@ class MEXP_GDrive_Service extends MEXP_Service {
 			$parameters['q'] .= " and title contains '{$args['q']}'";
 		}
 
-		// omit folders
+		// Pagination page
+		if ( isset( $args['pageToken'] ) ) {
+			if ( 'nomore' === $args['pageToken'] ) {
+				return array();
+			}
+
+			$parameters['pageToken'] = $args['pageToken'];
+		}
+
+		// omit folders for the moment
 		$parameters['q'] .= " and mimeType != 'application/vnd.google-apps.folder'";
 
 		// sort by modified date
@@ -603,23 +614,22 @@ class MEXP_GDrive_Service extends MEXP_Service {
 
 		//$parameters['corpus'] = 'DEFAULT';
 
-		if ( $pageToken ) {
-			$parameters['pageToken'] = $pageToken;
+
+		try {
+			$files = $service->files->listFiles( $parameters );
+
+			$result = $files->getItems();
+			$pageToken = $files->getNextPageToken();
+
+		} catch ( Exception $e ) {
+			echo 'An error occurred: ' . $e->getMessage();
 		}
 
-		do {
-			try {
-				$files = $service->files->listFiles($parameters);
-
-				$result = array_merge( $result, $files->getItems() );
-				$pageToken = $files->getNextPageToken();
-
-			} catch ( Exception $e ) {
-				echo 'An error occurred: ' . $e->getMessage();
-				$pageToken = NULL;
-			}
-
-		} while ( $pageToken );
+		if ( $pageToken ) {
+			$result['pageToken'] = $pageToken;
+		} else {
+			$result['pageToken'] = 'nomore';
+		}
 
 		return $result;
 	}
