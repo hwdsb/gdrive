@@ -170,7 +170,7 @@ class MEXP_GDrive_Service extends MEXP_Service {
 			$query_params['max_id'] = $request['max_id'];
 		}
 
-		ray_log( 'query params: ' . print_r( $query_params, true ) );
+		//ray_log( 'query params: ' . print_r( $query_params, true ) );
 
 		return $this->response( $query_params );
 	}
