@@ -219,10 +219,17 @@ class MEXP_GDrive_Service extends MEXP_Service {
 
 			//$owners = $file->getOwnerNames();
 
+			// truncated file type
+			if ( false !== strpos( $file->getMimeType(), 'google-apps' ) ) {
+				$type = substr( strrchr( $file->getMimeType(), '.' ), 1 );
+			} else {
+				$type = substr( $file->getMimeType(), 0, strpos( $file->getMimeType(), '/' ) );
+			}
+
 			// set up file meta
 			$file_meta = array(
 				'icon' => $file->iconLink,
-				'type' => substr( strrchr( $file->getMimeType(), '.' ), 1 ),
+				'type' => $type,
 				'dateCreated' => date( $item->date_format, strtotime( $file->getCreatedDate() ) )
 			);
 

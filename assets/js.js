@@ -288,6 +288,7 @@ media.controller.MEXP = mexpController.extend({
 		var selection = this.frame.content.get().getSelection(),
 			model = false,
 			shortcode = {},
+			gdoc = true,
 			type,
 			url,
 			retval;
@@ -310,28 +311,42 @@ media.controller.MEXP = mexpController.extend({
 			type += 's';
 		}
 
-		url = 'https://docs.google.com/' + type + '/d/' + model.id + '/';
+		switch ( type ) {
+			case 'document' :
+			case 'forms' :
+			case 'spreadsheets' :
+			case 'presentation' :
+				gdoc = true;
+				url = 'https://docs.google.com/' + type + '/d/' + model.id + '/';
 
-		if ( 'share' === model.get( 'embedType' ) ) {
-			url += 'edit?usp=sharing';
-		} else {
-			switch ( type ) {
-				case 'document' :
-					url += 'pub';
-					break;
+				if ( 'share' === model.get( 'embedType' ) ) {
+					url += 'edit?usp=sharing';
+				}
 
-				case 'forms' :
-					url += 'viewform';
-					break;
+				break;
 
-				case 'spreadsheets' :
-					url += 'pubhtml';
-					break;
+			default :
+				url = 'https://drive.google.com/file/d/' + model.id + '/view?usp=sharing';
+				shortcode.type = type;
+				break;
+		}
 
-				case 'presentation' :
-					url += 'pub?start=false&loop=false&delayms=3000';
-					break;
-			}
+		switch ( type ) {
+			case 'document' :
+				url += 'pub';
+				break;
+
+			case 'forms' :
+				url += 'viewform';
+				break;
+
+			case 'spreadsheets' :
+				url += 'pubhtml';
+				break;
+
+			case 'presentation' :
+				url += 'pub?start=false&loop=false&delayms=3000';
+				break;
 
 		}
 
