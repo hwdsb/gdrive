@@ -326,6 +326,10 @@ media.controller.MEXP = mexpController.extend({
 				break;
 
 			default :
+				if ( 'audio' !== type ) {
+					type = 'other';
+				}
+
 				url = 'https://drive.google.com/file/d/' + model.id + '/view?usp=sharing';
 				shortcode.type = type;
 				break;
