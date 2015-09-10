@@ -257,13 +257,14 @@ class MEXP_GDrive_Service extends MEXP_Service {
 
 		$refresh_token = mexp_gdrive_get_refresh_token();
 		if ( ! empty( $refresh_token ) ) {
-			$tabs['gdrive']['gmine'] = array(
-				'text'       => _x( 'All', 'Tab title', 'gdrive' ),
-				'defaultTab' => true,
-				'fetchOnRender' => true,
-			);
 			$tabs['gdrive']['gsearch'] = array(
 				'text'       => _x( 'Search', 'Tab title', 'gdrive' ),
+				'defaultTab' => true,
+			);
+
+			$tabs['gdrive']['gmine'] = array(
+				'text'       => _x( 'All', 'Tab title', 'gdrive' ),
+				'fetchOnRender' => true,
 			);
 
 		} else {
