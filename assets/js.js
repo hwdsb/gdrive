@@ -178,22 +178,25 @@ wp.media.view.MEXP = mexpView.extend({
 			return;
 		}
 
+		// de-select current item
 		if ( this.getSelection().get( id ) ) {
 			this.removeFromSelection( target, id );
 
 			// remove sidebar
 			this.disposeSingle();
 
+		// select another item
 		} else {
-			// we don't allow multiple selections...
-			if ( this.getSelection().length ) {
-				return;
-			}
+			// reset the entire collection
+			this.getSelection().reset();
 
+			// remove all selected items
+			jQuery( ".mexp-content-gdrive .mexp-item" ).removeClass('selected details');
+
+			// add selection to collection
 			this.addToSelection( target, id );
 
 			// sidebar addition
-			// this is a little ugly...
 			this.createSingle( this.getSelection().get( id ), id );
 		}
 	},
