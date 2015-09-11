@@ -21,8 +21,10 @@ class MEXP_GDrive_Template extends MEXP_Template {
 				</div>
 				<div class="mexp-item-main">
 					<div class="mexp-item-content">
-						<img src="{{ data.meta.file.icon }}">
-						<strong>{{ data.content }}</strong>
+						<strong>
+							<img src="{{ data.meta.file.icon }}">
+							{{ data.content }}
+						</strong>
 					</div>
 				</div>
 			</div>

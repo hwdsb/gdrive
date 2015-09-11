@@ -40,6 +40,15 @@
 	border: 1px solid #ccc;
 }
 
+.mexp-content-gdrive .mexp-item-content strong {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: bottom;
+	white-space: nowrap;
+	width: 83%;
+}
+
 .mexp-content-gdrive .mexp-item-main {
 	height: 21px;
 	margin-top: 6px;
