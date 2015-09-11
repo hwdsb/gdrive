@@ -53,6 +53,43 @@ wp.media.view.MEXP = mexpView.extend({
 		// add sidebar for our models only
 		if ( 'gdrive' === this.service.id ) {
 			this.createSidebar();
+
+			// port over dynamic columns from wp.media.view.Attachments view
+			this.$window = jQuery( window );
+			this.resizeEvent = 'resize.media-modal-columns';
+			_.bindAll( this, 'setColumns' );
+
+			this.on( 'ready', this.bindEvents );
+			this.controller.on( 'open', this.setColumns );
+
+			// Call this.setColumns() after this view has been rendered in the DOM so
+			// attachments get proper width applied.
+			_.defer( this.setColumns, this );
+		}
+	},
+
+	/**
+	 * Ported from wp.media.view.Attachments.
+	 */
+	bindEvents: function() {
+		this.$window.off( this.resizeEvent ).on( this.resizeEvent, _.debounce( this.setColumns, 50 ) );
+	},
+
+	/**
+	 * Ported from wp.media.view.Attachments.
+	 */
+	setColumns: function() {
+		var prev = this.columns,
+			width = this.$el.width(),
+			// this part here is modded by us
+			idealColumnWidth = jQuery( window ).width() < 640 ? 285 : 300;
+
+		if ( width ) {
+			this.columns = Math.min( Math.round( width / idealColumnWidth ), 12 ) || 1;
+
+			if ( ! prev || prev !== this.columns ) {
+				this.$el.closest( '.media-frame-content' ).attr( 'data-columns', this.columns );
+			}
 		}
 	},
 
