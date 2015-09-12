@@ -17,7 +17,15 @@ class MEXP_GDrive_Template extends MEXP_Template {
 		<div id="mexp-item-gdrive-<?php echo esc_attr( $tab ); ?>-{{ data.id }}" class="mexp-item-area mexp-item-gdrive" data-id="{{ data.id }}" data-gdrive-type="{{ data.meta.file.type }}">
 			<div class="mexp-item-container clearfix">
 				<div class="mexp-item-thumb">
-					<img width="150" height="112" src="{{ data.thumbnail }}">
+					<# if ( data.meta.file.nothumb ) { #>
+
+						<img width="64" height="64" src="{{ data.thumbnail }}" style="width:64px; padding:24px 43px;">
+
+					<# } else { #>
+
+						<img width="150" height="112" src="{{ data.thumbnail }}">
+
+					<# } #>
 				</div>
 				<div class="mexp-item-main">
 					<div class="mexp-item-content">
