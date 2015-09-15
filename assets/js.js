@@ -83,7 +83,7 @@ wp.media.view.MEXP = mexpView.extend({
 		var prev = this.columns,
 			width = this.$el.width(),
 			// this part here is modded by us
-			idealColumnWidth = jQuery( window ).width() < 640 ? 285 : 300;
+			idealColumnWidth = jQuery( window ).width() < 640 ? 300 : 315;
 
 		if ( width ) {
 			this.columns = Math.min( Math.round( width / idealColumnWidth ), 12 ) || 1;
