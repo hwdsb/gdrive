@@ -28,7 +28,8 @@ mexpAttachmentDisplaySettings = wp.media.view.Settings.AttachmentDisplay.extend(
 	 */
 	render: function() {
 		_.extend( this.options, {
-			type: this.options.model.attributes.meta.file.type
+			type: this.options.model.attributes.meta.file.type,
+			nothumb: this.options.model.attributes.meta.file.nothumb,
 		});
 
 		/**
@@ -345,7 +346,7 @@ media.controller.MEXP = mexpController.extend({
 			gdoc = true,
 			type,
 			url,
-			retval;
+			retval = '';
 
 		selection.each( function( item ) {
 			// we check for our special meta.file property to determine if this is a gdoc
@@ -441,11 +442,21 @@ media.controller.MEXP = mexpController.extend({
 
 		//console.log( model );
 
-		retval = wp.shortcode.string({
+		// non-Google Doc - filename
+		if ( model.get( 'filename' ) ) {
+			retval += '<div class="wp-caption">';
+		}
+
+		retval += wp.shortcode.string({
 			tag:  'gdoc',
 			type: 'single',
 			attrs: shortcode
 		});
+
+		// non-Google Doc - filename
+		if ( model.get( 'filename' ) ) {
+			retval += '<p class="wp-caption-text">' + model.attributes.content + '</p></div>';
+		}
 
 		media.editor.insert( retval );
 

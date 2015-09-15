@@ -208,6 +208,15 @@ class MEXP_GDrive_Template extends MEXP_Template {
 
 		<# } #>
 
+		<# if ( data.nothumb  ) { #>
+
+			<label class="setting">
+				<span><?php _e( 'Show Filename?', 'gdrive' ); ?></span>
+				<input type="checkbox" data-setting="filename" />
+			</label>
+
+		<# } #>
+
 	</script>
 
 	<?php
