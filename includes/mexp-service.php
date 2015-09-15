@@ -160,12 +160,6 @@ class MEXP_GDrive_Service extends MEXP_Service {
 			$q = $query_params['q'] = sanitize_title_with_dashes( $params['q'] );
 		}
 
-		switch ( $tab ) {
-			case 'popular':
-			default:
-				$endpoint = 'media/popular';
-		}
-
 		if ( isset( $request['max_id'] ) ) {
 			$query_params['pageToken'] = $request['max_id'];
 		}
