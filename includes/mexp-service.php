@@ -422,7 +422,7 @@ class MEXP_GDrive_Service extends MEXP_Service {
 					// 'Anyone with the link' - anyoneWithLink
 					if ( false !== strpos( $p->id, 'anyone' ) ) {
 						$data['share'] = 1;
-						continue;
+						break;
 					}
 				}
 			}
