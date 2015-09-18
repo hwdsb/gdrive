@@ -418,7 +418,9 @@ class MEXP_GDrive_Service extends MEXP_Service {
 				// check if doc is shared with anyone with link
 				$perms = $service->permissions->listPermissions( $_POST['id'] );
 				foreach ( (array) $perms->getItems() as $p ) {
-					if ( 'anyoneWithLink' === $p->id ) {
+					// 'Public on the web' - anyone
+					// 'Anyone with the link' - anyoneWithLink
+					if ( false !== strpos( $p->id, 'anyone' ) ) {
 						$data['share'] = 1;
 						continue;
 					}
