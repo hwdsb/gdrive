@@ -1,4 +1,9 @@
+.media-modal .media-frame .mexp-content-gdrive {
+	background: #f5f5f5;
+}
+
 .media-frame .mexp-content.mexp-content-gdrive .attachments {
+	background: #fff;
 	right: 300px;
 }
 
@@ -8,6 +13,10 @@
 
 .media-frame .mexp-content.mexp-content-gdrive-gauth .mexp-toolbar {
 	padding-bottom: 999em;
+}
+
+.media-frame-content[data-columns="2"] .mexp-content-gdrive-gsearch .mexp-toolbar .mexp-input-search {
+	width: 48%;
 }
 
 #gauth #signinButton {
@@ -65,4 +74,16 @@
 
 body.buddypress #mexp-gdrive {
 	margin-top: 2em;
+}
+
+@media only screen and (max-width: 900px) {
+	.media-frame .mexp-content.mexp-content-gdrive .attachments {
+		right: 227px
+	}
+}
+
+@media only screen and (max-width: 640px), screen and (max-height: 400px) {
+	.mexp-content-gdrive .media-sidebar {
+		bottom: auto;
+	}
 }
