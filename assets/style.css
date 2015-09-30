@@ -83,6 +83,10 @@ body.buddypress #mexp-gdrive {
 }
 
 @media only screen and (max-width: 640px), screen and (max-height: 400px) {
+	.media-frame .mexp-content.mexp-content-gdrive .attachments {
+		right: 0;
+	}
+
 	.mexp-content-gdrive .media-sidebar {
 		bottom: auto;
 	}
