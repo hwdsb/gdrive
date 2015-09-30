@@ -218,6 +218,14 @@ class MEXP_GDrive_Service extends MEXP_Service {
 				$thumb = str_replace( '_list.png', '', $thumb );
 				$thumb = substr( $thumb, strpos( $thumb, '_' ) + 1 );
 				$thumb = "https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_{$thumb}_x128.png";
+
+			// some thumbs require access token to render
+			// @see http://stackoverflow.com/a/14865218
+			} elseif ( false !== strpos( $thumb, '/feeds/' ) ) {
+				$token = json_decode( $this->client->getAccessToken() );
+				if ( isset( $token->access_token ) ) {
+					$thumb .= '&access_token=' . $token->access_token;
+				}
 			}
 
 			$item->set_thumbnail( $thumb );
