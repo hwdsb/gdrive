@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Media Explorer - Google Drive
-Version: 0.1-alpha
-Description: Allows users to select files from their own Google Drive to insert into posts.  Requires the Media Explorer plugin.
+Version: 0.1
+Description: Allows users to select files from their own Google Drive to insert into posts.  Requires the Media Explorer and Google Docs Shortcode plugins.
 Author: r-a-y
 Text Domain: gdrive
 Domain Path: /languages
