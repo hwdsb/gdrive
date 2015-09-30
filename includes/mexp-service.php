@@ -207,17 +207,28 @@ class MEXP_GDrive_Service extends MEXP_Service {
 			$item->set_date( strtotime( $file->getModifiedDate() ) );
 			$item->set_date_format( 'g:i A - j M y' );
 
-			// use the same dimensions as drive.google.com for thumbs
+			// other variables
 			$nothumb = false;
-			$thumb = str_replace( 's220', 'w200-h150-p-k-nu', $file->getThumbnailLink() );
+			$thumb   = str_replace( 's220', 'w200-h150-p-k-nu', $file->getThumbnailLink() );
+			$icon    = $file->iconLink;
 
 			// no thumb? use file icon
 			if ( empty( $thumb ) ) {
 				$nothumb = true;
-				$thumb = str_replace( 'https://ssl.gstatic.com/docs/doclist/images/icon_', '', $file->iconLink );
-				$thumb = str_replace( '_list.png', '', $thumb );
-				$thumb = substr( $thumb, strpos( $thumb, '_' ) + 1 );
-				$thumb = "https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_{$thumb}_x128.png";
+
+				// generic icons need a different URL format
+				if ( false !== strpos( $file->iconLink, 'generic' ) ) {
+					$icon = 'https://drive-thirdparty.googleusercontent.com/16/type/application/' . substr( $file->getMimeType(), 0, strpos( $file->getMimeType(), '/' ) );
+
+					$thumb = 'https://drive-thirdparty.googleusercontent.com/128/type/application/' . substr( $file->getMimeType(), 0, strpos( $file->getMimeType(), '/' ) );
+
+							https://ssl.gstatic.com/docs/doclist/images/generic_app_icon_16.png
+				} else {
+					$thumb = str_replace( 'https://ssl.gstatic.com/docs/doclist/images/icon_', '', $file->iconLink );
+					$thumb = str_replace( '_list.png', '', $thumb );
+					$thumb = substr( $thumb, strpos( $thumb, '_' ) + 1 );
+					$thumb = "https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_{$thumb}_x128.png";
+				}
 
 			// some thumbs require access token to render
 			// @see http://stackoverflow.com/a/14865218
@@ -241,7 +252,7 @@ class MEXP_GDrive_Service extends MEXP_Service {
 
 			// set up file meta
 			$file_meta = array(
-				'icon' => $file->iconLink,
+				'icon' => $icon,
 				'type' => $type,
 				'dateCreated' => date( $item->date_format, strtotime( $file->getCreatedDate() ) ),
 				'nothumb' => $nothumb
