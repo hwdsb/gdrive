@@ -584,8 +584,6 @@ class MEXP_GDrive_Service extends MEXP_Service {
 	/**
 	 * Retrieve all Google Drive files by the owner.
 	 *
-	 * @todo Support pagination.
-	 *
 	 * @link https://developers.google.com/drive/v2/reference/files/list
 	 * @link https://developers.google.com/drive/web/search-parameters
 	 *
