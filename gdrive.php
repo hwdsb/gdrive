@@ -46,8 +46,14 @@ class MEXP_GDrive {
 	 */
 	protected function __construct() {
 		// make sure our Google constants are defined before proceeding
-		if ( false === defined( 'MEXP_GDRIVE_CLIENT_ID' ) && false === defined( 'MEXP_GDRIVE_CLIENT_SECRET' ) ) {
-			add_action( 'admin_head-plugins.php', array( $this, 'show_notice' ) );
+		if ( false === defined( 'MEXP_GDRIVE_CLIENT_ID' ) || false === defined( 'MEXP_GDRIVE_CLIENT_SECRET' ) ) {
+			add_action( 'admin_head', array( $this, 'show_constants_notice' ) );
+			return;
+		}
+
+		// make sure Google Docs Shortcode v0.4 is installed before proceeding
+		if ( false === function_exists( 'ray_gdoc_shortcode_init' ) ) {
+			add_action( 'admin_head', array( $this, 'show_shortcode_notice' ) );
 			return;
 		}
 
@@ -83,20 +89,36 @@ class MEXP_GDrive {
 	}
 
 	/**
-	 * Displays an admin notice if our Google constants are not defined yet.
-	 *
-	 * Notice is displayed only on the "Plugins" page to avoid being annoying :)
+	 * Helper function to add a notice.
 	 */
-	public function show_notice() {
+	protected function add_notice( $notice = '' ) {
 		// only show notice for admins
 		if ( false === current_user_can( 'install_plugins' ) ) {
 			return;
 		}
 
-		$notice = sprintf( __( '<strong>Media Explorer - Google Drive</strong> requires the %s and %s constants to be defined.', 'gdrive' ), '<code>MEXP_GDRIVE_CLIENT_ID</code>', '<code>MEXP_GDRIVE_CLIENT_SECRET</code>' );
+		$hook = is_network_admin() ? 'network_admin_notices' : 'admin_notices';
 
-		add_action( 'admin_notices', create_function( '', "
+		add_action( $hook, create_function( '', "
 			echo '<div class=\"error\"><p>" . $notice . "</p></div>';
 		" ) );
+	}
+
+	/**
+	 * Displays an admin notice if our Google constants are not defined yet.
+	 */
+	public function show_constants_notice() {
+		$notice = sprintf( __( '<strong>Media Explorer - Google Drive</strong> requires the %s and %s constants to be defined.  Please view the readme.md file for more information.', 'gdrive' ), '<code>MEXP_GDRIVE_CLIENT_ID</code>', '<code>MEXP_GDRIVE_CLIENT_SECRET</code>' );
+
+		$this->add_notice( $notice );
+	}
+
+	/**
+	 * Displays an admin notice if Google Docs Shortcode v0.4 isn't installed.
+	 */
+	public function show_shortcode_notice() {
+		$notice = __( '<strong>Media Explorer - Google Drive</strong> requires the latest version of the Google Docs Shortcode plugin.  Please install and activate it.', 'gdrive' );
+
+		$this->add_notice( $notice );
 	}
 }
