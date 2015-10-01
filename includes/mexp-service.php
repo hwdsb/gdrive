@@ -222,7 +222,6 @@ class MEXP_GDrive_Service extends MEXP_Service {
 
 					$thumb = 'https://drive-thirdparty.googleusercontent.com/128/type/application/' . substr( $file->getMimeType(), 0, strpos( $file->getMimeType(), '/' ) );
 
-							https://ssl.gstatic.com/docs/doclist/images/generic_app_icon_16.png
 				} else {
 					$thumb = str_replace( 'https://ssl.gstatic.com/docs/doclist/images/icon_', '', $file->iconLink );
 					$thumb = str_replace( '_list.png', '', $thumb );
