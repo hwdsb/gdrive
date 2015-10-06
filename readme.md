@@ -11,10 +11,11 @@ Currently in pre-release status.
 ### Installation
 1. Install the [Media Explorer](https://github.com/automattic/media-explorer) plugin.
 2. Install the [Google Docs Shortcode](https://wordpress.org/plugins/google-docs-shortcode) plugin.
-3. If you plan on developing, clone this repo and run `composer install` in your shell prompt.  This will install the latest version of Google's PHP API.<br>
+3. Install the [Shortcake](https://wordpress.org/plugins/shortcode-ui) plugin.
+4. If you plan on developing, clone this repo and run `composer install` in your shell prompt.  This will install the latest version of Google's PHP API.<br>
    If you plan on testing, head over to the Github [Releases](https://github.com/hwdsbcommons/gdrive/releases) section for a precompiled .ZIP file of the entire plugin.
-4. Activate the plugin.  You should now see a notice asking you to define some Google constants.
-5. For this, you will need to create a Google Drive application in Google Developers Console.
+5. Activate the plugin.  You should now see a notice asking you to define some Google constants.
+6. For this, you will need to create a Google Drive application in Google Developers Console.
    1. Click on this link to create the app:<br> https://console.developers.google.com//start/api?id=drive&credential=client_key
    2. For help filling in the application, read "*Step 1*" of this page:<br> https://developers.google.com/identity/sign-in/web/server-side-flow#step_1_create_a_client_id_and_client_secret
    3. For your created app, enable oAuth 2.0.
@@ -24,11 +25,11 @@ Currently in pre-release status.
       4. Under **Authorized Javascript origins**, type in your site URL without a trailing slash. eg. `http://example.com`
       5. Under **Authorized redirect URIs**, type in your site URL with a trailing slash. eg. `http://example.com/`
       6. Note down your **Client ID** and **Client secret** located at the top of this page.
-6. In `wp-config.php` or in a */wp-content/mu-plugins/* plugin, add the following:
+7. In `wp-config.php` or in a */wp-content/mu-plugins/* plugin, add the following:
 
         define( 'MEXP_GDRIVE_CLIENT_ID', 'YOUR_CLIENT_ID_FROM_GOOGLE' );
         define( 'MEXP_GDRIVE_CLIENT_SECRET', 'YOUR_CLIENT_SECRET_FROM_GOOGLE' );
-7. Finally, we are able to test the plugin!  Either create a new post or edit an existing one and click on the "**Add Media**" button.
+8. Finally, we are able to test the plugin!  Either create a new post or edit an existing one and click on the "**Add Media**" button.
     * There should be a "**Insert from Google Drive**" link in the sidebar.  Click on that.
     * You should now see a **Sign-in to Google** button.  Once you've authenticated, you should be able to see your Google Drive contents and you should be able to start embedding.
 
