@@ -217,6 +217,15 @@ class MEXP_GDrive_Template extends MEXP_Template {
 
 		<# } #>
 
+		<# if ( 'form' !== data.type  ) { #>
+
+			<label class="setting">
+				<span><?php _e( 'Add Download Link', 'gdrive' ); ?></span>
+				<input type="checkbox" data-setting="downloadlink" />
+			</label>
+
+		<# } #>
+
 	</script>
 
 	<?php

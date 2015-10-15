@@ -440,6 +440,11 @@ media.controller.MEXP = mexpController.extend({
 			shortcode.seamless = 0;
 		}
 
+		// download link
+		if ( model.get( 'downloadlink' ) ) {
+			shortcode.downloadlink = 'true';
+		}
+
 		//console.log( model );
 
 		// non-Google Doc - filename
