@@ -220,7 +220,7 @@ wp.media.view.MEXP = mexpView.extend({
 
 	createSingle: function( model, id ) {
 		var sidebar = this.sidebar,
-			service = this.service,
+			that = this,
 			html = '';
 
 		sidebar.set( 'details', new mexpAttachmentDisplayDetails({
@@ -264,17 +264,7 @@ wp.media.view.MEXP = mexpView.extend({
 					}
 				}
 
-				if ( model.get( 'embeddable' ) ) {
-					html = service.labels.embeddable;
-
-					jQuery( '#mexp-button' ).prop( 'disabled', false );
-				} else {
-					html = service.labels.notembeddable;
-
-					jQuery( '#mexp-button' ).prop( 'disabled', true );
-				}
-
-				jQuery( '.mexp-content-gdrive .embed-status' ).html( html );
+				that.embedStatusRenderer( model, that.service.labels );
 
 				//console.log( response );
 			} )
@@ -283,18 +273,7 @@ wp.media.view.MEXP = mexpView.extend({
 
 		// we already queried for embed status, so output
 		} else {
-			if ( model.get( 'embeddable' ) ) {
-				html = service.labels.embeddable;
-
-				jQuery( '#mexp-button' ).prop( 'disabled', false );
-
-			} else {
-				html = service.labels.notembeddable;
-
-				jQuery( '#mexp-button' ).prop( 'disabled', true );
-			}
-
-			jQuery( '.mexp-content-gdrive .embed-status' ).html( html );
+			this.embedStatusRenderer( model, this.service.labels );
 		}
 
 		// Show the sidebar on mobile
@@ -302,6 +281,20 @@ wp.media.view.MEXP = mexpView.extend({
 		if ( this.model.id === 'insert' ) {
 			sidebar.$el.addClass( 'visible' );
 		}
+	},
+
+	embedStatusRenderer: function( model, labels ) {
+		if ( model.get( 'embeddable' ) ) {
+			html = labels.embeddable;
+
+			jQuery( '#mexp-button' ).prop( 'disabled', false );
+		} else {
+			html = labels.notembeddable;
+
+			jQuery( '#mexp-button' ).prop( 'disabled', true );
+		}
+
+		jQuery( '.mexp-content-gdrive .embed-status' ).html( html );
 	},
 
 	disposeSingle: function() {
