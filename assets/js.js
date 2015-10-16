@@ -284,12 +284,27 @@ wp.media.view.MEXP = mexpView.extend({
 	},
 
 	embedStatusRenderer: function( model, labels ) {
+		var docHeader = jQuery( 'label.doc-header' ),
+			html;
+
 		if ( model.get( 'embeddable' ) ) {
 			html = labels.embeddable;
+
+			if ( docHeader.length ) {
+				if ( 'public' === model.get( 'embedType' ) ) {
+					docHeader.show();
+				} else {
+					docHeader.hide();
+				}
+			}
 
 			jQuery( '#mexp-button' ).prop( 'disabled', false );
 		} else {
 			html = labels.notembeddable;
+
+			if ( docHeader.length ) {
+				docHeader.hide();
+			}
 
 			jQuery( '#mexp-button' ).prop( 'disabled', true );
 		}
