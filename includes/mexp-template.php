@@ -199,9 +199,9 @@ class MEXP_GDrive_Template extends MEXP_Template {
 
 		<# } #>
 
-		<# if ( 'document' === data.type  ) { #>
+		<# if ( 'document' === data.type ) { #>
 
-			<label class="setting">
+			<label class="setting doc-header">
 				<span><?php _e( 'Show Docs Header/Footer', 'gdrive' ); ?></span>
 				<input type="checkbox" data-setting="seamless" />
 			</label>
