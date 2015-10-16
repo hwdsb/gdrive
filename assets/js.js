@@ -266,6 +266,8 @@ wp.media.view.MEXP = mexpView.extend({
 
 				if ( model.get( 'embeddable' ) ) {
 					html = service.labels.embeddable;
+
+					jQuery( '#mexp-button' ).prop( 'disabled', false );
 				} else {
 					html = service.labels.notembeddable;
 
@@ -283,6 +285,9 @@ wp.media.view.MEXP = mexpView.extend({
 		} else {
 			if ( model.get( 'embeddable' ) ) {
 				html = service.labels.embeddable;
+
+				jQuery( '#mexp-button' ).prop( 'disabled', false );
+
 			} else {
 				html = service.labels.notembeddable;
 
