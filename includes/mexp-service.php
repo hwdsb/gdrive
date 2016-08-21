@@ -136,6 +136,8 @@ class MEXP_GDrive_Service extends MEXP_Service {
 		add_filter( 'mexp_tabs', array( $this, 'tabs' ), 10, 1 );
 
 		add_filter( 'mexp_labels', array( $this, 'labels' ), 10, 1 );
+
+		add_filter( 'mexp_js_gdrive', array( $this, 'js' ), 10, 1 );
 	}
 
 	/**
@@ -317,6 +319,20 @@ class MEXP_GDrive_Service extends MEXP_Service {
 		);
 
 		return $labels;
+	}
+
+	/**
+	 * Override MEXP's default JS views and controller.
+	 *
+	 * Requires our forked version of MEXP for now.
+	 *
+	 * @param  array $js Array of JS callbacks to use.
+	 * @return array
+	 */
+	public function js( $js ) {
+		$js['controller'] = 'gDriveController';
+		$js['view']       = 'gDriveView';
+		return $js;
 	}
 
 	/** GOOGLE API *********************************************************/

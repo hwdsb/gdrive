@@ -3,8 +3,8 @@
  * oversights, please let me know!
  */
 
-var mexpView = wp.media.view.MEXP,
-	mexpController = media.controller.MEXP,
+var gDriveView,
+	gDriveController,
 	mexpAttachmentDisplayDetails,
 	mexpAttachmentDisplaySettings;
 
@@ -40,16 +40,17 @@ mexpAttachmentDisplaySettings = wp.media.view.Settings.AttachmentDisplay.extend(
 	},
 });
 
-wp.media.view.MEXP = mexpView.extend({
+gDriveView = media.view.MEXP.extend({
 	events: function(){
-		return _.extend({}, mexpView.prototype.events,{
+		return _.extend({}, media.view.MEXP.prototype.events,{
 			'click .mexp-toolbar #signinButton'    : 'onclickoAuth',
-			'click .media-sidebar .embed-status a' : 'onclickAllowEmbed'
+			'click .media-sidebar .embed-status a' : 'onclickAllowEmbed',
+			'click .mexp-item-area'                : 'toggleSelectionHandler',
 		});
 	},
 
 	initialize: function() {
-		mexpView.prototype.initialize.apply( this, arguments );
+		media.view.MEXP.prototype.initialize.apply( this, arguments );
 
 		// add sidebar for our models only
 		if ( 'gdrive' === this.service.id ) {
@@ -160,9 +161,8 @@ wp.media.view.MEXP = mexpView.extend({
 	 *   - Adds a sidebar view
 	 */
 	toggleSelectionHandler: function( event ) {
-
 		if ( 'gdrive' !== this.service.id ) {
-			mexpView.prototype.toggleSelectionHandler.apply( this, arguments );
+			media.view.MEXP.prototype.toggleSelectionHandler.apply( this, arguments );
 			return;
 		}
 
@@ -346,9 +346,9 @@ wp.media.view.MEXP = mexpView.extend({
 });
 
 // change inserted URL to shortcode
-media.controller.MEXP = mexpController.extend({
+gDriveController = media.controller.MEXP.extend({
 	initialize: function() {
-		mexpController.prototype.initialize.apply( this, arguments );
+		media.controller.MEXP.prototype.initialize.apply( this, arguments );
 	},
 
 	mexpInsert: function() {
@@ -370,7 +370,7 @@ media.controller.MEXP = mexpController.extend({
 
 		// stop the madness for non-gdocs!
 		if ( false === model ) {
-			mexpController.prototype.mexpInsert.apply( this, arguments );
+			media.controller.MEXP.prototype.mexpInsert.apply( this, arguments );
 			return;
 		}
 
