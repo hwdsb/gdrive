@@ -37,7 +37,7 @@ Currently in pre-release status.
 ***
 
 ### Notes
-* [You can view a walkthrough video](https://tv.hwdsb.on.ca/media/connect-google-drive-and-the-commons-to-streamline-sharing) showcasing the plugin's functionality on a WordPress multisite and BuddyPress instance.
+* [You can view a walkthrough video](https://hwdsb.tv/media/connect-google-drive-and-the-commons-to-streamline-sharing) showcasing the plugin's functionality on a WordPress multisite and BuddyPress instance.
 * This plugin was originally created so each user on a WordPress site could access their own Google Drive contents.  If you plan on using this plugin in a shared, organizational context or would rather that the site share one Google Drive account, a developer should use:
  * the `'mexp_gdrive_get_refresh_token'` filter to override how the token is fetched
  * the `'mexp_gdrive_update_refresh_token'` action to update the token
