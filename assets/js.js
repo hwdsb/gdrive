@@ -46,6 +46,7 @@ gDriveView = media.view.MEXP.extend({
 			'click .mexp-toolbar #signinButton'    : 'onclickoAuth',
 			'click .media-sidebar .embed-status a' : 'onclickAllowEmbed',
 			'click .mexp-item-area'                : 'toggleSelectionHandler',
+			'submit .mexp-toolbar form'            : 'updateInput'
 		});
 	},
 
