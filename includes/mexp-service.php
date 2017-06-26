@@ -84,7 +84,8 @@ class MEXP_GDrive_Service extends MEXP_Service {
 		wp_enqueue_script(
 			'mexp-service-gdrive',
 			MEXP_GDrive::$URL . '/assets/js.js',
-			array( 'jquery', 'mexp' )
+			array( 'jquery', 'mexp' ),
+			'20170625'
 		);
 
 		wp_enqueue_style(
