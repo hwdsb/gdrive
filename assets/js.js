@@ -458,6 +458,11 @@ media.controller.MEXP = mexpController.extend({
 			shortcode.downloadlink = 'true';
 		}
 
+		// hide iframe
+		if ( model.get( 'hideiframe' ) ) {
+			shortcode.hideiframe = 'true';
+		}
+
 		//console.log( model );
 
 		// non-Google Doc - filename

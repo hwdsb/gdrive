@@ -215,6 +215,11 @@ class MEXP_GDrive_Template extends MEXP_Template {
 				<input type="checkbox" data-setting="filename" />
 			</label>
 
+			<label class="setting">
+				<span><?php _e( 'Hide Embed Frame?', 'gdrive' ); ?></span>
+				<input type="checkbox" data-setting="hideiframe" />
+			</label>
+
 		<# } #>
 
 		<# if ( 'form' !== data.type  ) { #>
