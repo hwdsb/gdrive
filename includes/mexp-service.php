@@ -217,10 +217,8 @@ class MEXP_GDrive_Service extends MEXP_Service {
 				$nothumb = true;
 
 				// generic icons need a different URL format
-				if ( false !== strpos( $file->iconLink, 'generic' ) ) {
-					$icon = 'https://drive-thirdparty.googleusercontent.com/16/type/application/' . substr( $file->getMimeType(), 0, strpos( $file->getMimeType(), '/' ) );
-
-					$thumb = 'https://drive-thirdparty.googleusercontent.com/128/type/application/' . substr( $file->getMimeType(), 0, strpos( $file->getMimeType(), '/' ) );
+				if ( false === strpos( $file->iconLink, 'vnd.google-apps' ) ) {
+					$thumb = str_replace( '/16/', '/128/', $icon );
 
 				} else {
 					$thumb = str_replace( 'https://ssl.gstatic.com/docs/doclist/images/icon_', '', $file->iconLink );
