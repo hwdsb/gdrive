@@ -35,7 +35,9 @@ mexpAttachmentDisplaySettings = wp.media.view.Settings.AttachmentDisplay.extend(
 		/**
 		 * call 'render' directly on the parent class
 		 */
-		wp.media.view.Settings.AttachmentDisplay.prototype.render.call( this );
+		if ( ! this.options.nothumb ) {
+			wp.media.view.Settings.AttachmentDisplay.prototype.render.call( this );
+		}
 		return this;
 	},
 });
@@ -463,10 +465,16 @@ media.controller.MEXP = mexpController.extend({
 			shortcode.hideiframe = 'true';
 		}
 
+		// Generic file type defaults.
+		if ( model.attributes.meta.file.nothumb ) {
+			shortcode.downloadlink = 'true';
+			shortcode.hideiframe   = 'true';
+		}
+
 		//console.log( model );
 
 		// non-Google Doc - filename
-		if ( model.get( 'filename' ) ) {
+		if ( model.get( 'filename' ) || model.attributes.meta.file.nothumb ) {
 			retval += '<div class="wp-caption">';
 		}
 
@@ -477,7 +485,7 @@ media.controller.MEXP = mexpController.extend({
 		});
 
 		// non-Google Doc - filename
-		if ( model.get( 'filename' ) ) {
+		if ( model.get( 'filename' ) || model.attributes.meta.file.nothumb ) {
 			retval += '<p class="wp-caption-text">' + model.attributes.content + '</p></div>';
 		}
 
