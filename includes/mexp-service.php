@@ -75,6 +75,37 @@ class MEXP_GDrive_Service extends MEXP_Service {
 
 		// revoke AJAX hook
 		add_action( 'wp_ajax_mexp-gdrive-revoke', array( $this, 'oauth_ajax_revoke' ) );
+
+		// Gutenberg support. Relies on Google Docs Shortcode 0.5.0.
+		add_action( 'enqueue_block_editor_assets', function() {
+			// Check if our Google Drive block is registered.
+			if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'ray/google-drive' ) ) {
+				return;
+			}
+
+			// Enqueue our assets.
+			wp_enqueue_script(
+				'mexp-gdrive-gutenberg',
+				MEXP_GDrive::$URL . '/assets/block.js',
+				array( 'ray-gdoc-block' ),
+				'20181120'
+			);
+			wp_enqueue_style(
+				'mexp-gdrive-gutenberg',
+				MEXP_GDrive::$URL . '/assets/block.css',
+				'20181120'
+			);
+
+			// i18n. Developer tools haven't stabilized yet...
+			/*
+			$locale_data = gutenberg_get_jed_locale_data( 'gdrive' );
+			wp_add_inline_script(
+				'wp-i18n',
+				'wp.i18n.setLocaleData( ' . json_encode( $locale_data ) . ' );'
+			);
+			*/
+		}, 20 );
+
 	}
 
 	/**
