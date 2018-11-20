@@ -493,6 +493,9 @@ gDriveController = media.controller.MEXP.extend({
 
 		media.editor.insert( retval );
 
+		// Allow plugins to run their own routine.
+		this.frame.trigger( 'gDrive:insert', shortcode );
+
 		selection.reset();
 		this.frame.close();
 	}
