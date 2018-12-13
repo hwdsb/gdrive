@@ -93,7 +93,7 @@ class MEXP_GDrive_Service extends MEXP_Service {
 			wp_enqueue_style(
 				'mexp-gdrive-gutenberg',
 				MEXP_GDrive::$URL . '/assets/block.css',
-				'20181120'
+				'20181212'
 			);
 
 			// i18n. Developer tools haven't stabilized yet...
