@@ -491,7 +491,9 @@ gDriveController = media.controller.MEXP.extend({
 			retval += '<p class="wp-caption-text">' + model.attributes.content + '</p></div>';
 		}
 
-		media.editor.insert( retval );
+		if ( typeof wpActiveEditor !== 'undefined' ) {
+			media.editor.insert( retval );
+		}
 
 		// Allow plugins to run their own routine.
 		this.frame.trigger( 'gDrive:insert', shortcode );
