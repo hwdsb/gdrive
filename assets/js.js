@@ -126,12 +126,15 @@ gDriveView = media.view.MEXP.extend({
 	},
 
 	onclickAllowEmbed: function( event ) {
-		var model = this.getSelection().get( event.currentTarget.offsetParent.dataset.id ),
-			service = this.service;
+		var id = jQuery( event.delegateTarget ).find( 'li.selected div.mexp-item-gdrive' ).data( 'id' ),
+			service = this.service,
+			model;
+
+		model = this.getSelection().get( id );
 
 		// set the gdoc to share with anyone with link
 		wp.ajax.post( 'mexp-gdrive-doc-allow-embed', {
-			id: event.currentTarget.offsetParent.dataset.id
+			id: id
 		} )
 		.done( function( response ) {
 			model.set( 'embeddable', 1 );
