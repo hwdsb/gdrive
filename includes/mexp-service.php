@@ -41,7 +41,12 @@ class MEXP_GDrive_Service extends MEXP_Service {
 		require_once dirname( __FILE__ ) . '/functions.php';
 		require_once dirname( __FILE__ ) . '/mexp-template.php';
 
-		if ( mexp_gdrive_is_user_profile_page_enabled() && is_main_site() ) {
+		if ( mexp_gdrive_is_user_profile_page_enabled() ) {
+			$is_main_site = function_exists( 'bp_is_root_blog' ) ? bp_is_root_blog() : is_main_site();
+			if ( ! $is_main_site ) {
+				return;
+			}
+
 			require_once dirname( __FILE__ ) . '/admin-profile.php';
 
 			if ( function_exists( 'buddypress' ) ) {
