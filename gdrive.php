@@ -99,9 +99,9 @@ class MEXP_GDrive {
 
 		$hook = is_network_admin() ? 'network_admin_notices' : 'admin_notices';
 
-		add_action( $hook, create_function( '', "
-			echo '<div class=\"error\"><p>" . $notice . "</p></div>';
-		" ) );
+		add_action( $hook, function() use ( $notice ) {
+			printf( '<div class="error"><p>%s</p></div>', $notice );
+		} );
 	}
 
 	/**
