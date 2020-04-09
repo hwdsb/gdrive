@@ -95,12 +95,12 @@ class GDrive extends Component {
 	}
 
 	onOpen() {
-		$( '.media-frame' ).addClass( 'hide-menu' );
-		$( '.media-modal' ).addClass( 'smaller' );
+		jQuery( '.media-frame' ).addClass( 'hide-menu' );
+		jQuery( '.media-modal' ).addClass( 'smaller' );
 	}
 
 	onClose() {
-		$( '.media-modal' ).removeClass( 'smaller' );
+		jQuery( '.media-modal' ).removeClass( 'smaller' );
 		const { onClose } = this.props;
 
 		if ( onClose ) {

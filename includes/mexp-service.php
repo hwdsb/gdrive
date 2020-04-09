@@ -88,7 +88,7 @@ class MEXP_GDrive_Service extends MEXP_Service {
 				'mexp-gdrive-gutenberg',
 				MEXP_GDrive::$URL . '/assets/block.js',
 				array( 'ray-gdoc-block' ),
-				'20181120'
+				'20200409'
 			);
 			wp_enqueue_style(
 				'mexp-gdrive-gutenberg',
