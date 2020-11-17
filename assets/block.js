@@ -45,7 +45,7 @@ addButton = wp.compose.createHigherOrderComponent( function( BlockEdit ) {
 						},
 						el(
 							wp.components.Button, {
-								className: 'button button-large',
+								className: 'button button-large is-primary',
 								onClick: obj.open
 							},
 							wp.i18n.__( 'Or Select From Drive' )
